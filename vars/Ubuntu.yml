@@ -1,0 +1,18 @@
+---
+apt_sources_components:
+- main
+- restricted
+- universe
+- multiverse
+
+apt_sources_repos:
+- "{{ansible_distribution_release}}"
+- "{{ansible_distribution_release}}-updates"
+- "{{ansible_distribution_release}}-backports"
+- "{{ansible_distribution_release}}-security"
+
+apt_sources_security_url: "http://security.ubuntu.com/"
+apt_sources_security_repo: "{{ansible_distribution_release}}/updates"
+
+apt_sources_url_prefix: "mirror://"
+apt_sources_url: "mirrors.ubuntu.com/mirrors.txt"

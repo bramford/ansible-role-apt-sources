@@ -1,0 +1,8 @@
+{% if apt_sources_security|bool == True and apt_sources_security_url is defined and apt_sources_security_repo is defined %}
+deb {{ apt_sources_url_prefix }}{{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}
+{% if apt_sources_deb_src|bool == True %} deb-src {{ apt_sources_url_prefix }}{{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}{% endif %}
+{% endif %}
+{% for repo in apt_sources_repos %}
+deb {{ apt_sources_url_prefix }}{{ apt_sources_url }} {{ repo }} {{ apt_sources_components|join(' ') }}
+{% if apt_sources_deb_src|bool == True %} deb-src {{ apt_sources_url_prefix }}{{ apt_sources_url_prefix }}{{ apt_sources_url }} {{ repo }} {{ apt_sources_components|join(' ') }}{% endif %}
+{% endfor %}

@@ -1,0 +1,16 @@
+---
+apt_sources_components:
+- main
+- contrib
+- non-free
+
+apt_sources_repos:
+- "{{ansible_distribution_release}}"
+- "{{ansible_distribution_release}}-updates"
+- "{{ansible_distribution_release}}-backports"
+
+apt_sources_security_url: "http://security.debian.org/"
+apt_sources_security_repo: "{{ansible_distribution_release}}/updates"
+
+apt_sources_url_prefix: "http://"
+apt_sources_url: "http.debian.net/debian"

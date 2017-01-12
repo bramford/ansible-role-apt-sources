@@ -1,0 +1,47 @@
+---
+- name: Include vars for Ubuntu
+  include_vars: Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+  tags: ["apt-sources"]
+
+- name: Include vars for Debian
+  include_vars: Debian.yml
+  when: ansible_distribution == "Debian"
+  tags: ["apt-sources"]
+
+- name: Correct distribution_release for debian testing releases
+  set_fact:
+    ansible_distribution_release: "{{ ansible_distribution_version|regex_replace('/sid','') }}"
+  when: (ansible_distribution_release == "NA") and
+        (ansible_distribution == "Debian")
+
+- block:
+    - name: Add apt keys
+      apt_key:
+        id: "{{ item.id|default(omit) }}"
+        keyserver: "{{ item.keyserver|default(omit) }}"
+        url: "{{ item.url|default(omit) }}"
+        state: present
+      become: yes
+      with_items: "{{ apt_source_keys }}"
+      register: add_apt_keys
+      tags: ["apt-sources"]
+  when: (apt_sources_keys|count > 0)
+
+- name: Create sources list
+  template:
+    src: sources.list.j2
+    dest: "{{ apt_sources_file }}"
+  when: (apt_sources_file is defined) and
+        (apt_sources_file != "")
+  become: yes
+  register: create_sources_list
+  tags: ["apt-sources"]
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  become: yes
+  when: (add_apt_keys.changed or create_sources_list.changed) or
+        (apt_source_always_update_cache|bool == True)
+  tags: ["apt-sources","skip_ansible_lint"]

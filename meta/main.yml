@@ -1,0 +1,16 @@
+galaxy_info:
+  author: Bramford Horton
+  description: Configuration of apt sources
+  license: MIT
+  min_ansible_version: 2.1
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - apt
+    - sources
+dependencies: []

@@ -1,0 +1,9 @@
+---
+apt_sources_always_update_cache: no
+apt_sources_deb_src: yes
+apt_sources_file: "/etc/apt/sources.list"
+apt_sources_security: yes
+apt_sources_keys: []
+# Examples
+#  - { keyserver: "subkeys.pgp.net", id: "55BE302B" }
+#  - { url: "https://mydomain.com/pubkey.pub" },
