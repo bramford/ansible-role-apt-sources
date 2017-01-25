@@ -23,7 +23,7 @@
         url: "{{ item.url|default(omit) }}"
         state: present
       become: yes
-      with_items: "{{ apt_source_keys }}"
+      with_items: "{{ apt_sources_keys }}"
       register: add_apt_keys
       tags: ["apt-sources"]
   when: (apt_sources_keys|count > 0)
@@ -43,5 +43,5 @@
     update_cache: yes
   become: yes
   when: (add_apt_keys.changed or create_sources_list.changed) or
-        (apt_source_always_update_cache|bool == True)
+        (apt_sources_always_update_cache|bool == True)
   tags: ["apt-sources","skip_ansible_lint"]
