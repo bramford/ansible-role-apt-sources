@@ -6,7 +6,6 @@ apt_sources_components:
 
 apt_sources_repos:
 - "{{ ansible_distribution_release }}"
-- "{{ ansible_distribution_release }}-updates"
 - "{{ ansible_distribution_release }}-backports"
 
 apt_sources_security_url: "http://security.debian.org/"

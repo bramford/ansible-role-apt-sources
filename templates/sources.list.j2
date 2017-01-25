@@ -1,8 +1,15 @@
-{% if apt_sources_security|bool == True and apt_sources_security_url is defined and apt_sources_security_repo is defined %}
-deb {{ apt_sources_url_prefix }}{{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}
-{% if apt_sources_deb_src|bool == True %} deb-src {{ apt_sources_url_prefix }}{{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}{% endif %}
-{% endif %}
 {% for repo in apt_sources_repos %}
+{% if (repo != ansible_distribution_release + "-backports") or (repo == ansible_distribution_release + "-backports" and apt_sources_backports|bool == True) %}
 deb {{ apt_sources_url_prefix }}{{ apt_sources_url }} {{ repo }} {{ apt_sources_components|join(' ') }}
-{% if apt_sources_deb_src|bool == True %} deb-src {{ apt_sources_url_prefix }}{{ apt_sources_url_prefix }}{{ apt_sources_url }} {{ repo }} {{ apt_sources_components|join(' ') }}{% endif %}
+{% if apt_sources_deb_src|bool == True %}
+deb-src {{ apt_sources_url_prefix }}{{ apt_sources_url }} {{ repo }} {{ apt_sources_components|join(' ') }}
+{% endif %}
+{% endif %}
+
 {% endfor %}
+{% if apt_sources_security|bool == True and apt_sources_security_url is defined and apt_sources_security_repo is defined %}
+deb {{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}
+{% if apt_sources_deb_src|bool == True %}
+deb-src {{ apt_sources_security_url }} {{ apt_sources_security_repo }} {{ apt_sources_components|join(' ') }}
+{% endif %}
+{% endif %}

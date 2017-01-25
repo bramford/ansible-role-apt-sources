@@ -2,6 +2,7 @@
 apt_sources_always_update_cache: no
 apt_sources_deb_src: yes
 apt_sources_file: "/etc/apt/sources.list"
+apt_sources_backports: no
 apt_sources_security: yes
 apt_sources_keys: []
 # Examples
