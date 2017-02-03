@@ -42,6 +42,7 @@
   apt:
     update_cache: yes
   become: yes
-  when: (add_apt_keys.changed or create_sources_list.changed) or
-        (apt_sources_always_update_cache|bool == True)
+  when: ((add_apt_keys.changed is defined and add_apt_keys.changed == True)) or
+        (create_sources_list.changed) or
+        (apt_source_always_update_cache|bool == True)
   tags: ["apt-sources","skip_ansible_lint"]
