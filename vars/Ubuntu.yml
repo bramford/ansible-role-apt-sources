@@ -11,8 +11,12 @@ apt_sources_repos:
 - "{{ ansible_distribution_release }}-backports"
 - "{{ ansible_distribution_release }}-security"
 
-apt_sources_security_url: "http://security.ubuntu.com/"
-apt_sources_security_repo: "{{ ansible_distribution_release }}/updates"
+apt_sources_security_url: "http://security.ubuntu.com/ubuntu/"
+apt_sources_security_repo: "{{ ansible_distribution_release }}-updates"
 
-apt_sources_url_prefix: "mirror://"
-apt_sources_url: "mirrors.ubuntu.com/mirrors.txt"
+# This is what http://mirrors.ubuntu.com/mirrors.txt suggests as
+# the most generic URL. Consider overriding it with a country-specific
+# URL, for instance picking one of http://mirrors.ubuntu.com/GB.txt for
+# the UK.
+apt_sources_url_prefix: 'http://'
+apt_sources_url: 'archive.ubuntu.com/ubuntu/'
