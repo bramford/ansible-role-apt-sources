@@ -14,6 +14,7 @@
     ansible_distribution_release: "{{ ansible_distribution_version|regex_replace('/sid','') }}"
   when: (ansible_distribution_release == "NA") and
         (ansible_distribution == "Debian")
+  tags: ["apt-sources"]
 
 - block:
     - name: Add apt keys
