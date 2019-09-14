@@ -12,7 +12,7 @@ apt_sources_repos:
 - "{{ ansible_distribution_release }}-security"
 
 apt_sources_security_url: "http://security.ubuntu.com/ubuntu/"
-apt_sources_security_repo: "{{ ansible_distribution_release }}-updates"
+apt_sources_security_repo: "{{ ansible_distribution_release }}-security"
 
 # This is what http://mirrors.ubuntu.com/mirrors.txt suggests as
 # the most generic URL. Consider overriding it with a country-specific
